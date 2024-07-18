@@ -4,6 +4,12 @@
   margin: auto;
 }
 
+.mainContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .errorMessage {
   color: red;
   margin-bottom: 20px;
@@ -26,12 +32,15 @@
 
 .textImageWrapper {
   display: flex;
+  flex-direction: column;
   margin-bottom: 20px;
+  margin-left: 20px;
   gap: 20px;
 }
 
 .textImageWrapper p {
   padding: 10px;
+  max-width: 400px;
   border: 1px solid #ddd;
   border-radius: 4px;
   background-color: #f9f9f9;
@@ -45,18 +54,10 @@
   flex: 1;
 }
 
-.storyImage {
-  width: 100%;
-  height: 200px;
-  background-size: cover;
-  background-position: center;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
 .questionWrapper,
 .guessWrapper {
   margin-bottom: "20px";
+  width: 100%;
 }
 
 .questionLabel,
