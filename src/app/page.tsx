@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Button } from "@mui/material";
 import { useRouter } from 'next/navigation';
 
-export default function () {
+export default function RootPg() {
     const [apiKey, setApiKey] = useState('');
     const router = useRouter()
 

@@ -17,7 +17,7 @@ interface questionObject {
   answer: string | null;
 }
 
-export default function () {
+export default function Home() {
   const [apiKey, setApiKey] = useState(globalstate.apiKey);
   const [image, setImage] = useState("");
   const [userInput, setUserInput] = useState("");
