@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from "react";
 import { useState } from "react";
 import { Button } from "@mui/material";
 import { useRouter } from 'next/navigation';
@@ -7,8 +8,8 @@ import styles from "./page_styles.module.css";
 import globalstate from "@/globalstate";
 
 const cardColors = [ "#3357FF", "#FF5733", "#33FF57", "#FF33A1", "gold"];
-const cardTitles = ["Water Gun", "Card 2", "Card 3", "Card 4", "Original Story"];
-const cardDescriptions = [
+const ct = ["Water Gun", "Card 2", "Card 3", "Card 4", "Original Story"];
+const cd = [
     "A man took a seat at the bar and asked the barkeeper for a glass of water. After giving Philip his water, the barkeeper pulled out a gun and pointed it at the his head. The man never drank his glass of water. He thanked the barkeeper and left.",
     "Description for Card 2",
     "Description for Card 3",
@@ -19,7 +20,23 @@ const cardDescriptions = [
 export default function RootPg() {
     const [selectedCard, setSelectedCard] = useState<number | null>(null);
     const [apiKey, setApiKey] = useState<string>('');
+    const [cardTitles, setCardTitles] = useState(ct);
+    const [cardDescriptions, setCardDescriptions] = useState(cd);
     const router = useRouter();
+
+    // Fetch card data from JSON file
+    useEffect(() => {
+        const fetchCardData = async () => {
+            const response = await fetch('/stories.json');
+            const data = await response.json();
+            setCardTitles(data.map((card: any) => card.title));
+            setCardDescriptions(data.map((card: any) => card.description));
+            console.log('Fetching card data...');
+        };
+    
+        fetchCardData();
+    
+    }, []);
 
     const handleApiKeyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setApiKey(e.target.value);
