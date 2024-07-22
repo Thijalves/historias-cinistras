@@ -1,0 +1,116 @@
+.wrappedPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #473545;
+}
+
+.main {
+    text-align: center;
+}
+
+.title {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.title .ia {
+    color: blue;
+}
+
+.title .cin {
+    color: red;
+}
+
+.cardsContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) 1.5fr;
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    border-radius: 8px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.cardTitle {
+    color: #fff;
+    font-size: 1.2em;
+    text-align: center;
+}
+
+.specialCard {
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+    height: 100%;
+    width: 100%;
+}
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modalOverlay p {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 600px;
+}
+
+.apiKeyLabel {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.apiKeyInput {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.submitButton {
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+}
+
+.closeButton {
+    margin-top: 10px;
+    background-color: #f44336;
+    color: #fff;
+    margin-left: 10px;
+}
