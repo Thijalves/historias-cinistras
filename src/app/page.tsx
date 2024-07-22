@@ -27,7 +27,7 @@ export default function RootPg() {
 
     const navigateToHome = () => {
         globalstate.apiKey = apiKey;
-        router.push('/home');
+        router.push('/game');
     }
 
     const handleCardClick = (index: number) => {

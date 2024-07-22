@@ -1,6 +1,6 @@
 import './style.css'
 import { useState } from 'react';
-import styles from '../app/home/home_styles.module.css';
+import styles from '../app/game/game_styles.module.css';
 import Button from '@mui/material/Button';
 
 type LoginModalProps = {

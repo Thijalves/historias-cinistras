@@ -5,7 +5,7 @@ import { useState } from "react";
 import OpenAI from "openai";
 import Image from "next/image";
 
-import styles from "./home_styles.module.css";
+import styles from "./game_styles.module.css";
 
 // import globalstate from "../globalstate"
 import globalstate from "@/globalstate"
@@ -17,7 +17,7 @@ interface questionObject {
   answer: string | null;
 }
 
-export default function Home() {
+export default function Game() {
   const [apiKey, setApiKey] = useState(globalstate.apiKey);
   const [image, setImage] = useState("");
   const [userInput, setUserInput] = useState("");
