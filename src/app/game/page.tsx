@@ -67,7 +67,6 @@
       setError("");
 
       let openai = new OpenAI({apiKey, dangerouslyAllowBrowser: true});
-      console.log(selectedCard)
 
       try {
         const content = `lets play dark stories, the story is: ${selectedCard.description} The solution to his history is: ${selectedCard.answer} Evaluate if it is right or not and answer ONLY 'correct' or 'incorrect'.`;
