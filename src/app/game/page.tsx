@@ -13,6 +13,36 @@
     answer: string | null;
   }
 
+  interface QuestionComponentProps {
+    question: string;
+    answer: string;
+  }
+
+  function QuestionComponent({question, answer} : QuestionComponentProps) {
+    return <>
+    <p className={styles.messageComponent}>
+      {question[0].toUpperCase()}{question.substring(1)}{question[question.length-1] == "?" ? ""  : "?"} <b>{answer.toUpperCase()}</b>
+    </p>
+    </>
+  }
+
+  function hr() {
+    return <hr/>;
+  }
+
+  function addhr(ls: JSX.Element[]) {
+    const ans: JSX.Element[] = [];
+
+    for(let i=0; i<ls.length-1; i++) {
+      ans.push(ls[i]);
+      ans.push(hr());
+    }
+
+    if(ls.length>0) ans.push(ls[ls.length-1]);
+
+    return ans;
+  }
+
   export default function Game() {
     const [apiKey, setApiKey] = useState(globalstate.apiKey);
     const [userInput, setUserInput] = useState("");
@@ -95,14 +125,13 @@
 
         <div className={styles.mainContent}>
           <div className={styles.questionWrapper}>
-            <div style={{backgroundColor: 'white', justifyContent: 'center'}}>
-              <ul>
-                {questionHistoric.length > 0 &&  questionHistoric.map((question, index) => (
-                  <li key={index}>
-                    {`${question.question}: ${question.answer}`}
-                  </li>
-                ))}
-              </ul>       
+            <div>
+              <div className={styles.chatBox}>
+                
+                {questionHistoric.length > 0 && addhr(questionHistoric.map((question, index) => (
+                  <QuestionComponent question={question.question ?? ""} answer={question.answer ?? ""} />
+                )))}
+              </div>
             <input
               id="question"
               type="text"

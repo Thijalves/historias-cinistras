@@ -81,3 +81,20 @@
   background-color: #0070f3;
   color: #fff;
 }
+
+
+.messageComponent {
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+
+.chatBox {
+  background-color: white;
+  justify-content: center;
+  padding: 8px;
+  padding-top: 12px;
+  margin-bottom: 8px;
+  border-color: black;
+  border-width: 20px;
+}
