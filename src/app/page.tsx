@@ -13,6 +13,7 @@ export default function RootPg() {
     const [cardDescriptions, setCardDescriptions] = useState<string[]>([]);
     const [cardColors, setCardColors] = useState<string[]>([]);
     const [cardImages, setCardImages] = useState<string[]>([]);
+    const [cardAnswers, setCardAnswers] = useState<string[]>([]);
     const router = useRouter();
 
     // Fetch card data from JSON file
@@ -24,6 +25,7 @@ export default function RootPg() {
             setCardDescriptions(data.map((card: any) => card.description));
             setCardColors(data.map((card: any) => card.color));
             setCardImages(data.map((card: any) => card.image));
+            setCardAnswers(data.map((card: any) => card.answer));
         };
 
         fetchCardData();
@@ -39,7 +41,8 @@ export default function RootPg() {
             title: cardTitles[selectedCard!],
             description: cardDescriptions[selectedCard!],
             color: cardColors[selectedCard!],
-            image: cardImages[selectedCard!]
+            image: cardImages[selectedCard!],
+            answer: cardAnswers[selectedCard!],
         };
         router.push('/game');
     }

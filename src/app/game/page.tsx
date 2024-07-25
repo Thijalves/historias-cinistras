@@ -67,9 +67,10 @@
       setError("");
 
       let openai = new OpenAI({apiKey, dangerouslyAllowBrowser: true});
+      console.log(selectedCard)
 
       try {
-        const content = `lets play dark stories, the story is: ${selectedCard.description} The solution to his history is: The man had the hiccups. He ordered some water to try get rid of his hiccups. The barkeeper noticed him hiccuping and tried to frighten him by pointing a gun at his head. The surprise and shock made him forget about his hiccups so he no longer needed the water. I will try to guess the solution. Evaluate if it is right or not and answer ONLY 'correct' or 'incorrect'.`;
+        const content = `lets play dark stories, the story is: ${selectedCard.description} The solution to his history is: ${selectedCard.answer} Evaluate if it is right or not and answer ONLY 'correct' or 'incorrect'.`;
         const completion = await openai.chat.completions.create({
           messages: [{ role: "assistant", content: content }, {role: "user", content: userInput}],
           model: "gpt-4o",
