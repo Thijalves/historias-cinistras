@@ -41,7 +41,7 @@
       let openai = new OpenAI({apiKey, dangerouslyAllowBrowser: true});
 
       try {
-        const content = `lets play dark stories, the story is: ${globalstate.description} Answer ONLY YES, NO or IRRELEVANT to the following question:`;
+        const content = `lets play dark stories, the description is: ${globalstate.description} and the answer to this case is: ${globalstate.answer}. Answer ONLY YES, NO or IRRELEVANT to the following question:`;
         const completion = await openai.chat.completions.create({
           messages: [{ role: "assistant", content: content }, {role: "user", content: userInput}],
           model: "gpt-4o",
