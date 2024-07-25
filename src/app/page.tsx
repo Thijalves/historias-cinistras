@@ -15,6 +15,7 @@ export default function RootPg() {
     const [cardColors, setCardColors] = useState<string[]>([]);
     const [cardImages, setCardImages] = useState<string[]>([]);
     const [cardAnswers, setCardAnswers] = useState<string[]>([]);
+    const [error, setError] = useState<string>("");
     const router = useRouter();
 
     // Fetch card data from JSON file
@@ -36,7 +37,7 @@ export default function RootPg() {
         setApiKey(e.target.value);
     }
 
-    function extractTitleDescriptionAndAnswer(inputString) {
+    function extractTitleDescriptionAndAnswer(inputString: string): { title: string; description: string; answer: string } | null {
         // Regular expression to match title, description, and answer
         const regex = /title:\s*(.*?)\s*description:\s*(.*?)\s*answer:\s*(.*)/;
         const match = inputString.match(regex);
@@ -70,14 +71,14 @@ export default function RootPg() {
                   messages: [{ role: "assistant", content: rules }, {role: "user", content: prompt}],
                   model: "gpt-4o",
                 });
-                response = completion.choices[0].message.content;
+                response = completion.choices[0].message.content!;
                 console.log("Response:", response);
               } catch (err) {
                 console.error("Error submitting guess:", err);
                 setError("Failed to submit guess.");
               }
             
-            const { title, description, answer } = extractTitleDescriptionAndAnswer(response);
+            const { title, description, answer } = extractTitleDescriptionAndAnswer(response)!;
 
             const image_prompt = `NO TEXT, NO BALLOON, CARTOON STYLE: ${description}`;
 
@@ -87,23 +88,20 @@ export default function RootPg() {
                 n: 1,
                 size: "1024x1024",
               });
-            const image_url = response_to_image.data[0].url;
+            let image_url = response_to_image.data[0].url!;
 
-            globalstate.selectedCard = {
-                title: title,
-                description: description,
-                color: "gold",
-                image: image_url,
-                answer: answer,
-            };
+            globalstate.title = title;
+            globalstate.description = description;
+            globalstate.color = "gold";
+            globalstate.image = image_url;
+            globalstate.answer = answer;
+
         }else{
-            globalstate.selectedCard = {
-                title: cardTitles[selectedCard!],
-                description: cardDescriptions[selectedCard!],
-                color: cardColors[selectedCard!],
-                image: cardImages[selectedCard!],
-                answer: cardAnswers[selectedCard!],
-            };
+            globalstate.title = cardTitles[selectedCard!];
+            globalstate.description = cardDescriptions[selectedCard!];
+            globalstate.color = cardColors[selectedCard!];
+            globalstate.image = cardImages[selectedCard!];
+            globalstate.answer = cardAnswers[selectedCard!];
         }
         
         router.push('/game');

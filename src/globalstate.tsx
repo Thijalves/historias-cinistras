@@ -1,8 +1,15 @@
 let apiKey: string = "";
-let selectedCard: { title: string, description: string, color: string, image: string } | null = null;
-
+let title: string = "";
+let description: string = "";
+let answer: string = "";
+let color: string = "";
+let image: string = "";
 
 export default {
     apiKey, 
-    selectedCard
+    title,
+    description,
+    answer,
+    color,
+    image
 }

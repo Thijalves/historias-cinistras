@@ -21,13 +21,11 @@
     const [questionHistoric, setQuestionHistoric] = useState<questionObject[]>([]);
     const router = useRouter();
 
-    const selectedCard = globalstate.selectedCard;
-
     useEffect(() => {
-      if (!selectedCard) {
+      if (!globalstate.apiKey) {
         router.push('/');
       }
-    }, [selectedCard, router]);
+    }, [globalstate.apiKey, router]);
 
     const handleApiKeyChange = (e: any) => setApiKey(e.target.value);
     const handleUserInput = (e: any) => setUserInput(e.target.value);
@@ -43,7 +41,7 @@
       let openai = new OpenAI({apiKey, dangerouslyAllowBrowser: true});
 
       try {
-        const content = `lets play dark stories, the story is: ${selectedCard.description} Answer ONLY YES, NO or IRRELEVANT to the following question:`;
+        const content = `lets play dark stories, the story is: ${globalstate.description} Answer ONLY YES, NO or IRRELEVANT to the following question:`;
         const completion = await openai.chat.completions.create({
           messages: [{ role: "assistant", content: content }, {role: "user", content: userInput}],
           model: "gpt-4o",
@@ -69,7 +67,7 @@
       let openai = new OpenAI({apiKey, dangerouslyAllowBrowser: true});
 
       try {
-        const content = `lets play dark stories, the story is: ${selectedCard.description} The solution to his history is: ${selectedCard.answer} Evaluate if it is right or not and answer ONLY 'correct' or 'incorrect'.`;
+        const content = `lets play dark stories, the story is: ${globalstate.description} The solution to his history is: ${globalstate.answer} Evaluate if it is right or not and answer ONLY 'correct' or 'incorrect'.`;
         const completion = await openai.chat.completions.create({
           messages: [{ role: "assistant", content: content }, {role: "user", content: userInput}],
           model: "gpt-4o",
@@ -83,13 +81,13 @@
       }
     };
 
-    if (!selectedCard) {
+    if (!globalstate.apiKey) {
       return null;
     }
 
     return (
       <div className={styles.main}>
-        <h1>Historias CInistras - {selectedCard.title}</h1>
+        <h1>Historias CInistras - {globalstate.title}</h1>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
         
@@ -136,10 +134,10 @@
 
           <div className={styles.textImageWrapper}>
             <div className={styles.storyImageWrapper}>
-              {selectedCard.image && <Image unoptimized width={400} height={400} src={selectedCard.image} alt="Story Image" /> }
+              {globalstate.image && <Image unoptimized width={400} height={400} src={globalstate.image} alt="Story Image" /> }
             </div>
             <div>
-              <p>{selectedCard.description}</p>
+              <p>{globalstate.description}</p>
             </div>
           </div>
           
