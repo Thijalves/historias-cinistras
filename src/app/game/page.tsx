@@ -87,7 +87,7 @@
 
     return (
       <div className={styles.main}>
-        <h1>Historias CInistras - {globalstate.title}</h1>
+        <h1>{globalstate.title}</h1>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
         
