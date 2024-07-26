@@ -96,5 +96,10 @@
   padding-top: 12px;
   margin-bottom: 8px;
   border-color: black;
-  border-width: 20px;
+  max-height: 30vh;
+  text-wrap: wrap;
+  overflow-y: scroll;
 }
+
+
+

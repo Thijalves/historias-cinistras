@@ -78,6 +78,12 @@
         });
         const newQuestion: questionObject = {question: userInput, answer: completion.choices[0].message.content};
         setQuestionHistoric((prev) => [...prev, newQuestion]);
+        setUserInput("");
+
+        setTimeout(() => {
+          const elm = document.getElementById("chat-box");
+          elm?.children[elm?.children.length-1].scrollIntoView({ behavior: 'smooth' });
+        }, 2);
       } catch (err) {
         console.error("Error submitting question:", err);
         setError("Failed to submit question.");
@@ -126,15 +132,13 @@
         <div className={styles.mainContent}>
           <div className={styles.questionWrapper}>
             <div>
-              <div className={styles.chatBox}>
-                
-                {questionHistoric.length > 0 && addhr(questionHistoric.map((question, index) => (
+                {questionHistoric.length > 0 && (<div id="chat-box" className={styles.chatBox}>
+                  {addhr(questionHistoric.map((question, index) => (
                   <QuestionComponent question={question.question ?? ""} answer={question.answer ?? ""} />
                 )))}
-              </div>
-            <input
+                </div>)}
+            <textarea
               id="question"
-              type="text"
               value={userInput}
               onChange={handleUserInput}
               placeholder="Enter your question or guess here"
