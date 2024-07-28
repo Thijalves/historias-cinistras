@@ -142,7 +142,7 @@
             />
             </div>
             <div>
-              <text>Número de palpites: {questionHistoric.length}</text>
+              <text>Perguntas feitas: {questionHistoric.length}</text>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <button
