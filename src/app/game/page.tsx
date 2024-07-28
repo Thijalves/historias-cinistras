@@ -141,6 +141,9 @@
               className={styles.questionInput}
             />
             </div>
+            <div>
+              <text>Número de palpites: {questionHistoric.length}</text>
+            </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <button
                 onClick={handleSubmitQuestion}
