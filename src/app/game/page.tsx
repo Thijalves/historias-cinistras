@@ -49,6 +49,7 @@
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [questionHistoric, setQuestionHistoric] = useState<questionObject[]>([]);
+    const [gameResult, setGameResult] = useState<string | null>(null);
     const router = useRouter();
 
     useEffect(() => {
@@ -102,7 +103,7 @@
           messages: [{ role: "assistant", content: content }, {role: "user", content: userInput}],
           model: "gpt-4o",
         });
-        alert(completion.choices[0].message.content)
+        setGameResult(completion.choices[0].message.content);
       } catch (err) {
         console.error("Error submitting guess:", err);
         setError("Failed to submit guess.");
@@ -139,15 +140,16 @@
               onChange={handleUserInput}
               placeholder="Enter your question or guess here"
               className={styles.questionInput}
+              disabled={!!gameResult}
             />
             </div>
             <div>
-              <text>Perguntas feitas: {questionHistoric.length}</text>
+              <text>Questions asked: {questionHistoric.length}</text>
             </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <button
                 onClick={handleSubmitQuestion}
-                disabled={loading}
+                disabled={loading || !!gameResult}
                 className={styles.submitButton}
                 style={{ cursor: loading ? "not-allowed" : "pointer" }}
               >
@@ -155,13 +157,18 @@
               </button>
                 <button
                   onClick={handleSubmitGuess}
-                  disabled={loading}
+                  disabled={loading || !!gameResult}
                   className={styles.submitButton}
                   style={{ cursor: loading ? "not-allowed" : "pointer" }}
                 >
                   {loading ? "Submitting..." : "Guess"}
                 </button>
             </div>
+          {gameResult && (
+            <div className={styles.resultMessage}>
+              <p>{gameResult === 'correct' ? "Congrats! You're right!" : "Ooh, you missed! That was the correct answer: " + globalstate.answer}</p>
+            </div>
+          )}
           </div>
 
           <div className={styles.textImageWrapper}>
