@@ -5,6 +5,7 @@
   import OpenAI from "openai";
   import Image from "next/image";
   import styles from "./game_styles.module.css";
+  import homeStyles from "../page_styles.module.css";
   import globalstate from "@/globalstate";
   import { useRouter } from "next/navigation";
 
@@ -18,10 +19,12 @@
     answer: string;
   }
 
+  const punctuation = ['.', '?', ',', ':', ';', '!'];
+
   function QuestionComponent({question, answer} : QuestionComponentProps) {
     return <>
     <p className={styles.messageComponent}>
-      {question[0].toUpperCase()}{question.substring(1)}{question[question.length-1] == "?" ? ""  : "?"} <b>{answer.toUpperCase()}</b>
+      {question[0].toUpperCase()}{question.substring(1)}{punctuation.includes(question[question.length-1]) ? ""  : "?"} <b>{answer.toUpperCase()}</b>
     </p>
     </>
   }
@@ -122,8 +125,9 @@
     }
 
     return (
+      <div className={homeStyles.wrappedPage}>
       <div className={styles.main}>
-        <h1>{globalstate.title}</h1>
+        <h1 className={styles.text}>{globalstate.title}</h1>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
         
@@ -158,14 +162,14 @@
                   onClick={handleSubmitGuess}
                   disabled={loading}
                   className={styles.submitButton}
-                  style={{ cursor: loading ? "not-allowed" : "pointer" }}
+                  style={{ backgroundColor: 'rgb(255, 87, 51)', cursor: loading ? "not-allowed" : "pointer" }}
                 >
                   {loading ? "Submitting..." : "Guess"}
                 </button>
             </div>
           </div>
 
-          <div className={styles.textImageWrapper}>
+          <div className={styles.textImageWrapper} >
             <div className={styles.storyImageWrapper}>
               {globalstate.image && <Image unoptimized width={400} height={400} src={globalstate.image} alt="Story Image" /> }
             </div>
@@ -177,6 +181,7 @@
         </div>
         
         
+      </div>
       </div>
     );
   }

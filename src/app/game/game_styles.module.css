@@ -1,7 +1,53 @@
+/* width */
+.chatBox::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+.chatBox::-webkit-scrollbar-track {
+  background: #2b1928; 
+}
+ 
+/* Handle */
+.chatBox::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.chatBox::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+/* width */
+.questionInput::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+.questionInput::-webkit-scrollbar-track {
+  background: #2b1928; 
+}
+ 
+/* Handle */
+.questionInput::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.questionInput::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
 .main {
   padding: 20px;
   max-width: 800px;
   margin: auto;
+}
+
+.text {
+  color: white;
+  margin-bottom: 12px;
 }
 
 .mainContent {
@@ -41,9 +87,10 @@
 .textImageWrapper p {
   padding: 10px;
   max-width: 400px;
-  border: 1px solid #ddd;
+  border: 0px solid #ddd;
   border-radius: 4px;
-  background-color: #f9f9f9;
+  background-color: #2b1928;
+  color: white;
 }
 
 .textImageWrapper div {
@@ -58,6 +105,7 @@
 .guessWrapper {
   margin-bottom: "20px";
   width: 100%;
+  max-width: 30vw;
 }
 
 .questionLabel,
@@ -69,8 +117,19 @@
 .questionInput,
 .guessInput {
   width: 100%;
+  max-width: 30vw;
   padding: 10px;
   box-sizing: border-box;
+  background-color: #2b1928;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  max-height: 20vh;
+}
+
+.questionInput::placeholder{
+  border: none;
+  color: #888888;
 }
 
 .submitButton {
@@ -78,8 +137,9 @@
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
-  background-color: #0070f3;
-  color: #fff;
+  background-color: rgb(255, 51, 161);
+  color: white;
+  font-weight: bold;
 }
 
 
@@ -90,16 +150,15 @@
 
 
 .chatBox {
-  background-color: white;
   justify-content: center;
-  padding: 8px;
-  padding-top: 12px;
+  padding: 12px;
+  padding-right: 14px;
   margin-bottom: 8px;
   border-color: black;
   max-height: 30vh;
   text-wrap: wrap;
   overflow-y: scroll;
+  border-radius: 4px;
+  background-color: #2b1928;
+  color: white;
 }
-
-
-
