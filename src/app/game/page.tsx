@@ -5,6 +5,7 @@
   import OpenAI from "openai";
   import Image from "next/image";
   import styles from "./game_styles.module.css";
+  import homeStyles from "../page_styles.module.css";
   import globalstate from "@/globalstate";
   import { useRouter } from "next/navigation";
 
@@ -18,10 +19,12 @@
     answer: string;
   }
 
+  const punctuation = ['.', '?', ',', ':', ';', '!'];
+
   function QuestionComponent({question, answer} : QuestionComponentProps) {
     return <>
     <p className={styles.messageComponent}>
-      {question[0].toUpperCase()}{question.substring(1)}{question[question.length-1] == "?" ? ""  : "?"} <b>{answer.toUpperCase()}</b>
+      {question[0].toUpperCase()}{question.substring(1)}{punctuation.includes(question[question.length-1]) ? ""  : "?"} <b>{answer.toUpperCase()}</b>
     </p>
     </>
   }
@@ -79,6 +82,12 @@
         });
         const newQuestion: questionObject = {question: userInput, answer: completion.choices[0].message.content};
         setQuestionHistoric((prev) => [...prev, newQuestion]);
+        setUserInput("");
+
+        setTimeout(() => {
+          const elm = document.getElementById("chat-box");
+          elm?.children[elm?.children.length-1].scrollIntoView({ behavior: 'smooth' });
+        }, 2);
       } catch (err) {
         console.error("Error submitting question:", err);
         setError("Failed to submit question.");
@@ -117,8 +126,9 @@
     }
 
     return (
+      <div className={homeStyles.wrappedPage}>
       <div className={styles.main}>
-        <h1>{globalstate.title}</h1>
+        <h1 className={styles.text}>{globalstate.title}</h1>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
         
@@ -127,15 +137,13 @@
         <div className={styles.mainContent}>
           <div className={styles.questionWrapper}>
             <div>
-              <div className={styles.chatBox}>
-                
-                {questionHistoric.length > 0 && addhr(questionHistoric.map((question, index) => (
+                {questionHistoric.length > 0 && (<div id="chat-box" className={styles.chatBox}>
+                  {addhr(questionHistoric.map((question, index) => (
                   <QuestionComponent question={question.question ?? ""} answer={question.answer ?? ""} />
                 )))}
-              </div>
-            <input
+                </div>)}
+            <textarea
               id="question"
-              type="text"
               value={userInput}
               onChange={handleUserInput}
               placeholder="Enter your question or guess here"
@@ -159,7 +167,7 @@
                   onClick={handleSubmitGuess}
                   disabled={loading || !!gameResult}
                   className={styles.submitButton}
-                  style={{ cursor: loading ? "not-allowed" : "pointer" }}
+                  style={{ backgroundColor: 'rgb(255, 87, 51)', cursor: loading ? "not-allowed" : "pointer" }}
                 >
                   {loading ? "Submitting..." : "Guess"}
                 </button>
@@ -171,7 +179,7 @@
           )}
           </div>
 
-          <div className={styles.textImageWrapper}>
+          <div className={styles.textImageWrapper} >
             <div className={styles.storyImageWrapper}>
               {globalstate.image && <Image unoptimized width={400} height={400} src={globalstate.image} alt="Story Image" /> }
             </div>
@@ -183,6 +191,7 @@
         </div>
         
         
+      </div>
       </div>
     );
   }
