@@ -72,7 +72,6 @@ export default function RootPg() {
                   model: "gpt-4o",
                 });
                 response = completion.choices[0].message.content!;
-                console.log("Response:", response);
               } catch (err) {
                 console.error("Error submitting guess:", err);
                 setError("Failed to submit guess.");
