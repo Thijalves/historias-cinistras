@@ -141,8 +141,8 @@ export default function RootPg() {
                 {selectedCard !== null && (
                     <div className={styles.modalOverlay}>
                         <div className={styles.modal}>
-                            <h2>{cardTitles[selectedCard]}</h2>
-                            <p>{cardDescriptions[selectedCard]}</p>
+                            <h2 className={styles.whiteText}>{cardTitles[selectedCard]}</h2>
+                            <p className={styles.storyText}>{cardDescriptions[selectedCard]}</p>
                             <input
                                 id={`apiKey-${selectedCard}`}
                                 type="password"
@@ -151,12 +151,14 @@ export default function RootPg() {
                                 placeholder="Enter your API Key"
                                 className={styles.apiKeyInput}
                             />
-                            <Button className={styles.submitButton} onClick={navigateToHome}>
-                                Start
-                            </Button>
-                            <Button className={styles.closeButton} onClick={closeCard}>
+                            <div className={styles.buttonsRow} >
+                            <Button style={{ backgroundColor: "#2b1928", color: "white"}} onClick={closeCard}>
                                 Close
                             </Button>
+                            <Button style={{ backgroundColor: "#4CAF50", color: "white"}} onClick={navigateToHome}>
+                                Start
+                            </Button>
+                            </div>
                         </div>
                     </div>
                 )}

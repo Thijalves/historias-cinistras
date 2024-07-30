@@ -117,6 +117,7 @@
 .questionInput,
 .guessInput {
   width: 100%;
+  min-width: 30vw;
   max-width: 30vw;
   padding: 10px;
   box-sizing: border-box;
@@ -125,6 +126,7 @@
   border-radius: 4px;
   color: white;
   max-height: 20vh;
+  min-height: 18px;
 }
 
 .questionInput::placeholder{
@@ -161,4 +163,35 @@
   border-radius: 4px;
   background-color: #2b1928;
   color: white;
+}
+
+
+.badgeWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: start;
+}
+
+/* Make the badge float in the top right corner */
+.badge {
+  background-color: rgb(255, 51, 161);
+  border-radius: 50%;
+  color: white;
+ 
+  padding: 3px 3px;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* position: absolute; Position the badge within the relatively positioned button */
+  margin-right: -8px;
+  margin-bottom: -8px;
+  /* top: 0; */
+  /* right: 0; */
+
 }
