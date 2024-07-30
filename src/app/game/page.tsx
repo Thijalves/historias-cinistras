@@ -8,6 +8,8 @@
   import homeStyles from "../page_styles.module.css";
   import globalstate from "@/globalstate";
   import { useRouter } from "next/navigation";
+  import GuessModal from "@/components/guess-modal/index";
+  import AnswerModal from "@/components/answer-modal";
 
   interface questionObject {
     question: string | null;
@@ -22,9 +24,11 @@
   const punctuation = ['.', '?', ',', ':', ';', '!'];
 
   function QuestionComponent({question, answer} : QuestionComponentProps) {
+    const q = question.trim();
+
     return <>
     <p className={styles.messageComponent}>
-      {question[0].toUpperCase()}{question.substring(1)}{punctuation.includes(question[question.length-1]) ? ""  : "?"} <b>{answer.toUpperCase()}</b>
+      {q[0].toUpperCase()}{q.substring(1)}{punctuation.includes(q[q.length-1]) ? ""  : "?"} <b>{answer.toUpperCase()}</b>
     </p>
     </>
   }
@@ -54,6 +58,8 @@
     const [questionHistoric, setQuestionHistoric] = useState<questionObject[]>([]);
     const [gameResult, setGameResult] = useState<string | null>(null);
     const router = useRouter();
+    const [guessActive, setGuessActive] = useState(false);
+    const [resultActive, setResultActive] = useState(false);
 
     useEffect(() => {
       if (!globalstate.apiKey) {
@@ -113,6 +119,7 @@
           model: "gpt-4o",
         });
         setGameResult(completion.choices[0].message.content);
+        setResultActive(true);
       } catch (err) {
         console.error("Error submitting guess:", err);
         setError("Failed to submit guess.");
@@ -127,15 +134,20 @@
 
     return (
       <div className={homeStyles.wrappedPage}>
+
+      <GuessModal guess={userInput} active={guessActive} setActive={setGuessActive} submitGuess={handleSubmitGuess}/>
+      
       <div className={styles.main}>
         <h1 className={styles.text}>{globalstate.title}</h1>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
         
         <LoginModal handleApiKeyChange={handleApiKeyChange} apiKey={apiKey} />
+        <AnswerModal active={resultActive} success={gameResult == 'correct'} answer={globalstate.answer} rt={router}/>
 
         <div className={styles.mainContent}>
           <div className={styles.questionWrapper}>
+            {questionHistoric.length > 0 && <div className={styles.badgeWrapper}><span className={styles.badge}>{questionHistoric.length}</span></div>}
             <div>
                 {questionHistoric.length > 0 && (<div id="chat-box" className={styles.chatBox}>
                   {addhr(questionHistoric.map((question, index) => (
@@ -151,23 +163,20 @@
               disabled={!!gameResult}
             />
             </div>
-            <div>
-              <text>Questions asked: {questionHistoric.length}</text>
-            </div>
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
               <button
                 onClick={handleSubmitQuestion}
-                disabled={loading || !!gameResult}
+                disabled={loading || !!gameResult || !userInput}
                 className={styles.submitButton}
-                style={{ cursor: loading ? "not-allowed" : "pointer" }}
+                style={{ cursor: (loading || !userInput) ? "not-allowed" : "pointer" }}
               >
                 {loading ? "Submitting..." : "Question"}
               </button>
                 <button
-                  onClick={handleSubmitGuess}
-                  disabled={loading || !!gameResult}
+                  onClick={() => {if(userInput) setGuessActive(true)}}
+                  disabled={loading || !!gameResult || !userInput}
                   className={styles.submitButton}
-                  style={{ backgroundColor: 'rgb(255, 87, 51)', cursor: loading ? "not-allowed" : "pointer" }}
+                  style={{ backgroundColor: 'rgb(255, 87, 51)', cursor: (loading || !userInput) ? "not-allowed" : "pointer" }}
                 >
                   {loading ? "Submitting..." : "Guess"}
                 </button>

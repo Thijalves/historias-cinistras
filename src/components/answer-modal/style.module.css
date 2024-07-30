@@ -1,0 +1,90 @@
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.modalOverlay p {
+}
+
+.modal {
+  background-color: #473545;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 50vw;
+  color: white;
+  min-height: 20vh;
+  max-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.buttonsRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.submitButton {
+  margin-top: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+.closeButton {
+  margin-top: 10px;
+  background-color: #f44336;
+  color: #fff;
+  margin-left: 10px;
+}
+
+
+/* width */
+.guessText::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+.guessText::-webkit-scrollbar-track {
+  background: #2b1928; 
+}
+ 
+/* Handle */
+.guessText::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+.guessText::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+.guessText {
+  background-color: #2b1928;
+  padding: 6px;
+  padding-top: 6px;
+  border-radius: 4px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  width: fit-content;
+  max-height: 40vh;
+  font-size: small;
+  text-align: start;
+  text-wrap: wrap;
+  overflow-y: scroll;
+  color: #999999;
+}
+
+.smallText {
+  text-align: start;
+  color: white;
+}
